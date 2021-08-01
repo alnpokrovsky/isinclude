@@ -42,11 +42,8 @@ func findPosBin(array []int, need int) int {
 
 		if array[mid] < need {
 			lowPos = mid + 1
-			continue
-		}
-		if array[mid] >= need {
+		} else {
 			highPos = mid
-			continue
 		}
 	}
 
