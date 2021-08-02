@@ -11,7 +11,7 @@ func IsInclude(array []int, subarray []int) bool {
 		return true
 	}
 
-	firstPossible := findPosBin(array, subarray[0])
+	firstPossible := lowerBound(array, subarray[0])
 	if firstPossible == -1 {
 		return false
 	}
@@ -27,20 +27,32 @@ func IsInclude(array []int, subarray []int) bool {
 	return hasEqual(array[firstPossible:], subarray)
 }
 
-// findPosBin выполняет бинарный поиск в отсортированном массиве
+// lowerBound выполняет бинарный поиск в отсортированном массиве
 // если элемент не найден возвращает -1, иначе позицию первого вхождения
-func findPosBin(array []int, need int) int {
+func lowerBound(array []int, need int) int {
 	lowPos := 0               // первый индекс
 	highPos := len(array) - 1 // последний индекс
 
-	if (array[lowPos] > need) || (array[highPos] < need) {
-		return -1 // нужное значение не в диапазоне данных
+	// определяем функцию сравнения для упорядоченного
+	// по возрастанию или по убыванию массива
+	var compare func(a int, b int) bool
+	if array[lowPos] < array[highPos] {
+		if (array[lowPos] > need) || (array[highPos] < need) {
+			return -1 // нужное значение не в диапазоне данных
+		}
+		compare = func(a int, b int) bool { return a < b }
+	} else {
+		if (array[highPos] > need) || (array[lowPos] < need) {
+			return -1 // нужное значение не в диапазоне данных
+		}
+		compare = func(a int, b int) bool { return a > b }
 	}
 
+	// бинарный поиск
 	for lowPos < highPos {
 		mid := (lowPos + highPos) / 2
 
-		if array[mid] < need {
+		if compare(array[mid], need) {
 			lowPos = mid + 1
 		} else {
 			highPos = mid

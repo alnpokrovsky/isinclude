@@ -27,3 +27,11 @@ func TestIsIncludeSpaces(t *testing.T) {
 	assert.Equal(t, false, isinclude.IsInclude([]int{1, 2, 3, 5, 5, 5, 7, 9, 11}, []int{5, 5, 9}))
 	assert.Equal(t, false, isinclude.IsInclude([]int{1, 2, 3, 5, 7, 9, 11}, []int{3, 11}))
 }
+
+func TestIsIncludeReverce(t *testing.T) {
+	assert.Equal(t, true, isinclude.IsInclude([]int{11, 10, 9, 5, 4, 3, 1}, []int{5, 4, 3}))
+	assert.Equal(t, false, isinclude.IsInclude([]int{11, 10, 9, 5, 4, 3, 1}, []int{5, 4, 2}))
+	assert.Equal(t, true, isinclude.IsInclude([]int{11, 10, 9, 9, 9, 9, 5, 4, 3, 1}, []int{9, 9, 5, 4, 3}))
+	assert.Equal(t, true, isinclude.IsInclude([]int{11, 10, 9, 9, 5, 4, 3, 1}, []int{9, 9, 5, 4, 3}))
+	assert.Equal(t, false, isinclude.IsInclude([]int{11, 10, 9, 5, 4, 3, 1}, []int{9, 9, 5, 4, 3}))
+}
