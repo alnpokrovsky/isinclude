@@ -69,11 +69,12 @@ func lowerBound(array []int, need int) int {
 // countDuplicatesOfFirst подсчитывает количество повторений
 // первого элемента в упорядоченном массиве
 func countDuplicatesOfFirst(array []int) int {
-	count := 1
-	for array[0] == array[count] {
-		count++
+	for count := 1; count < len(array); count++ {
+		if array[0] != array[count] {
+			return count
+		}
 	}
-	return count
+	return 0
 }
 
 // hasEqual проверяет на равенство subarray и начало array

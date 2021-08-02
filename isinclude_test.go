@@ -10,7 +10,9 @@ import (
 func TestIsIncludeBasic(t *testing.T) {
 	assert.Equal(t, true, isinclude.IsInclude([]int{1, 2, 3, 5, 7, 9, 11}, []int{}))
 	assert.Equal(t, true, isinclude.IsInclude([]int{1, 2, 3, 5, 7, 9, 11}, []int{3, 5, 7}))
+	assert.Equal(t, true, isinclude.IsInclude([]int{1, 2, 3, 5, 7, 9, 11}, []int{7, 9, 11}))
 	assert.Equal(t, false, isinclude.IsInclude([]int{1, 2, 3, 5, 7, 9, 11}, []int{4, 5, 7}))
+	assert.Equal(t, false, isinclude.IsInclude([]int{1, 2, 3, 5, 7, 9, 11}, []int{7, 9, 11, 12}))
 }
 
 func TestIsIncludeDuplicates(t *testing.T) {
@@ -20,6 +22,9 @@ func TestIsIncludeDuplicates(t *testing.T) {
 	assert.Equal(t, true, isinclude.IsInclude([]int{1, 2, 3, 3, 3, 5, 7, 9, 11}, []int{3, 5, 7}))
 	assert.Equal(t, false, isinclude.IsInclude([]int{1, 2, 3, 3, 3, 5, 5, 7, 9, 11}, []int{3, 5, 7}))
 	assert.Equal(t, false, isinclude.IsInclude([]int{1, 2, 3, 3, 3, 5, 5, 5, 5, 5, 5, 7, 7, 8, 9, 11}, []int{3, 5, 7}))
+	assert.Equal(t, true, isinclude.IsInclude([]int{1, 1, 1}, []int{1, 1, 1}))
+	assert.Equal(t, true, isinclude.IsInclude([]int{1, 1, 1}, []int{1, 1}))
+	assert.Equal(t, false, isinclude.IsInclude([]int{1, 1, 1}, []int{1, 1, 1, 1}))
 }
 
 func TestIsIncludeSpaces(t *testing.T) {
